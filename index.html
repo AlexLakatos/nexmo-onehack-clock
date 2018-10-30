@@ -1,0 +1,86 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="flipclock.css">
+  <style>
+    body {
+      background-color: #49494B;
+    }
+    .wrapper {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 10px;
+      grid-auto-rows: 200px;
+      grid-template-areas:
+        ". a a ."
+        ". a a .";
+    }
+    .grid {
+      grid-area: a;
+      align-self: center;
+      justify-self: center;
+      width: auto
+    }
+
+    .your-clock .flip-clock-label {
+      right: -102px;
+      color: rgb(204, 204, 204);
+      font-size: 24px;
+    }
+
+    .flip-clock-divider.minutes .flip-clock-label {
+        right: -110px;
+    }
+
+    .flip-clock-divider.seconds .flip-clock-label {
+        right: -114px;
+    }
+
+    .location {
+      color: rgb(204, 204, 204);
+      font-size: 32px;
+margin: 0 0 100px 0;
+    }
+    .logo img {
+      width: 480px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="grid">
+      <div class="logo">
+        <img src="light.png" alt="">
+        <p class="location flip-clock-wrapper">London, November 29 & 30 2018</p>
+      </div>
+      <div class="your-clock">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="flipclock.js"></script>
+  <script type="text/javascript">
+    var nexmoClock = localStorage.getItem('nexmoClock');
+    console.log(nexmoClock);
+    if (nexmoClock) {
+      var clock = new FlipClock($('.your-clock'), nexmoClock, {
+        countdown: true
+      });
+      setInterval(() => {
+        localStorage.setItem('nexmoClock', localStorage.getItem('nexmoClock') - 1)
+      }, 1000)
+    } else {
+      var clock = new FlipClock($('.your-clock'), 86400, {
+        countdown: true,
+      });
+      localStorage.setItem('nexmoClock', 86400)
+      setInterval(() => {
+        localStorage.setItem('nexmoClock', localStorage.getItem('nexmoClock') - 1)
+      }, 1000)
+    }
+  </script>
+</body>
+
+</html>
