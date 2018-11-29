@@ -67,30 +67,39 @@ width: 460px;
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="flipclock.js"></script>
   <script type="text/javascript">
-    var nexmoClock = localStorage.getItem('nexmoClock');
-    var interval;
-    if (nexmoClock) {
-      console.log(nexmoClock);
-    } else {
-      localStorage.setItem('nexmoClock', 86400);
-      nexmoClock = localStorage.getItem('nexmoClock');
-    }
-
-    document.addEventListener('keypress', (event) => {
-      if (event.key === "r") {
-        clearInterval(interval)
-        localStorage.setItem('nexmoClock', 86400)
-        console.log("ncr", localStorage.getItem('nexmoClock'));
-      }
-      if (event.key === "s") {
-        var clock = new FlipClock($('.your-clock'), nexmoClock, {
-          countdown: true
-        });
-        console.log("ncs", localStorage.getItem('nexmoClock'));
-        interval = setInterval(() => {
-          localStorage.setItem('nexmoClock', localStorage.getItem('nexmoClock') - 1)
-        }, 1000)
-      }
+    // var nexmoClock = localStorage.getItem('nexmoClock');
+    // var interval;
+    // if (nexmoClock) {
+    //   console.log(nexmoClock);
+    // } else {
+    //   localStorage.setItem('nexmoClock', 86400);
+    //   nexmoClock = localStorage.getItem('nexmoClock');
+    // }
+    //
+    // document.addEventListener('keypress', (event) => {
+    //   if (event.key === "r") {
+    //     clearInterval(interval)
+    //     localStorage.setItem('nexmoClock', 86400)
+    //     console.log("ncr", localStorage.getItem('nexmoClock'));
+    //   }
+    //   if (event.key === "s") {
+    //     var clock = new FlipClock($('.your-clock'), nexmoClock, {
+    //       countdown: true
+    //     });
+    //     console.log("ncs", localStorage.getItem('nexmoClock'));
+    //     interval = setInterval(() => {
+    //       localStorage.setItem('nexmoClock', localStorage.getItem('nexmoClock') - 1)
+    //     }, 1000)
+    //   }
+    // });
+    var currentDate = new Date();
+    // Set some date in the past. In this case, it's always been since Jan 1
+    var futureDate = new Date("Fri Nov 30 2018 13:35:00 GMT+0000 (Greenwich Mean Time)");
+    // Calculate the difference in seconds between the future and current date
+    var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+    if (diff < 0) diff = 0;
+    var clock = new FlipClock($('.your-clock'), diff, {
+      countdown: true
     });
   </script>
 </body>
