@@ -68,23 +68,30 @@ width: 460px;
   <script src="flipclock.js"></script>
   <script type="text/javascript">
     var nexmoClock = localStorage.getItem('nexmoClock');
-    console.log(nexmoClock);
+    var interval;
     if (nexmoClock) {
-      var clock = new FlipClock($('.your-clock'), nexmoClock, {
-        countdown: true
-      });
-      setInterval(() => {
-        localStorage.setItem('nexmoClock', localStorage.getItem('nexmoClock') - 1)
-      }, 1000)
+      console.log(nexmoClock);
     } else {
-      var clock = new FlipClock($('.your-clock'), 86400, {
-        countdown: true,
-      });
-      localStorage.setItem('nexmoClock', 86400)
-      setInterval(() => {
-        localStorage.setItem('nexmoClock', localStorage.getItem('nexmoClock') - 1)
-      }, 1000)
+      localStorage.setItem('nexmoClock', 86400);
+      nexmoClock = localStorage.getItem('nexmoClock');
     }
+
+    document.addEventListener('keypress', (event) => {
+      if (event.key === "r") {
+        clearInterval(interval)
+        localStorage.setItem('nexmoClock', 86400)
+        console.log("ncr", localStorage.getItem('nexmoClock'));
+      }
+      if (event.key === "s") {
+        var clock = new FlipClock($('.your-clock'), nexmoClock, {
+          countdown: true
+        });
+        console.log("ncs", localStorage.getItem('nexmoClock'));
+        interval = setInterval(() => {
+          localStorage.setItem('nexmoClock', localStorage.getItem('nexmoClock') - 1)
+        }, 1000)
+      }
+    });
   </script>
 </body>
 
