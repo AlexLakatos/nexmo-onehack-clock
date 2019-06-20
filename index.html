@@ -97,7 +97,7 @@
     if (location.search === "") {
       document.querySelector(".start").style.display = "block";
       document.querySelector(".start").addEventListener("click", () => {
-        location.search = `?date=${new Date(new Date().getTime() + 60 * 60 * 24 * 1000)}`;
+        location.pathname = `/${btoa(new Date(new Date().getTime() + 60 * 60 * 24 * 1000))}`;
       })
 
     } else {
@@ -107,7 +107,7 @@
         query[pairs[0]] = pairs[1]
       })
       var currentDate = new Date();
-      var futureDate = new Date(decodeURI(query.date));
+      var futureDate = new Date(atob(query.date));
       var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
       if (diff < 0) {
         diff = 0;
