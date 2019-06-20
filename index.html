@@ -101,13 +101,8 @@
       })
 
     } else {
-      var query = {}
-      location.search.slice(1).split("&").forEach(x => {
-        var pairs = x.split("=");
-        query[pairs[0]] = pairs[1]
-      })
       var currentDate = new Date();
-      var futureDate = new Date(atob(query.date));
+      var futureDate = new Date(atob(location.pathname.slice(1)));
       var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
       if (diff < 0) {
         diff = 0;
