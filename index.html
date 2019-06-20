@@ -8,18 +8,20 @@
     }
     .wrapper {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       grid-gap: 10px;
       grid-auto-rows: 200px;
       grid-template-areas:
-        ". a a ."
-        ". a a .";
+        ". a ."
+        ". a .";
     }
     .grid {
       grid-area: a;
       align-self: center;
       justify-self: center;
-      width: auto
+      width: auto;
+      transform: scale(1.5);
+      height: 200px;
     }
 
     .your-clock .flip-clock-label {
@@ -38,12 +40,39 @@
 
     .location {
       color: rgb(204, 204, 204);
-      font-size: 32px;
-margin: 0 0 100px 0;
+      font-size: 24px;
+      margin: 10px 0 100px 0;
     }
     .logo img {
-      width: 480px;
+      width: 630px;
     }
+    .your-clock {
+      margin: 1em 88px;
+      width: 460px;
+    }
+    .start {
+      display: none;
+      text-align: center;
+    }
+
+    .start button {
+    	background-color:#35af76;
+    	-moz-border-radius:3px;
+    	-webkit-border-radius:3px;
+    	border-radius:6px;
+      cursor: pointer;
+    	color:#ffffff;
+    	font-size:28px;
+    	font-weight:bold;
+    	padding:7px 24px;
+    	text-decoration:none;
+      border-color: #49494b;
+    }
+    .start button:hover {
+    	background-color:#3d57a3;
+    }
+
+
   </style>
 </head>
 
@@ -52,7 +81,10 @@ margin: 0 0 100px 0;
     <div class="grid">
       <div class="logo">
         <img src="light.png" alt="">
-        <p class="location flip-clock-wrapper">London, November 29 & 30 2018</p>
+        <p class="location flip-clock-wrapper">Tel Aviv, June 23 & 24 2018</p>
+      </div>
+      <div class="start">
+        <button type="button" name="start" id="start">Start Countdown</button>
       </div>
       <div class="your-clock">
       </div>
@@ -62,23 +94,27 @@ margin: 0 0 100px 0;
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="flipclock.js"></script>
   <script type="text/javascript">
-    var nexmoClock = localStorage.getItem('nexmoClock');
-    console.log(nexmoClock);
-    if (nexmoClock) {
-      var clock = new FlipClock($('.your-clock'), nexmoClock, {
+    if (location.search === "") {
+      document.querySelector(".start").style.display = "block";
+      document.querySelector(".start").addEventListener("click", () => {
+        location.search = `?date=${new Date(new Date().getTime() + 60 * 60 * 24 * 1000)}`;
+      })
+
+    } else {
+      var query = {}
+      location.search.slice(1).split("&").forEach(x => {
+        var pairs = x.split("=");
+        query[pairs[0]] = pairs[1]
+      })
+      var currentDate = new Date();
+      var futureDate = new Date(decodeURI(query.date));
+      var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+      if (diff < 0) {
+        diff = 0;
+      }
+      var clock = new FlipClock($('.your-clock'), diff, {
         countdown: true
       });
-      setInterval(() => {
-        localStorage.setItem('nexmoClock', localStorage.getItem('nexmoClock') - 1)
-      }, 1000)
-    } else {
-      var clock = new FlipClock($('.your-clock'), 86400, {
-        countdown: true,
-      });
-      localStorage.setItem('nexmoClock', 86400)
-      setInterval(() => {
-        localStorage.setItem('nexmoClock', localStorage.getItem('nexmoClock') - 1)
-      }, 1000)
     }
   </script>
 </body>
