@@ -1,10 +1,17 @@
 <html>
 
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500|Roboto+Mono:500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="flipclock.css">
+
   <style>
-    body {
-      background-color: #49494B;
+    body, html {
+      background: linear-gradient(45deg, purple, orange);;
+      color: white;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
     }
     .wrapper {
       display: grid;
@@ -39,8 +46,8 @@
     }
 
     .location {
-      color: rgb(204, 204, 204);
       font-size: 24px;
+      font-family: 'Montserrat', sans-serif;
       margin: 10px 0 100px 0;
     }
     .logo img {
@@ -56,20 +63,20 @@
     }
 
     .start button {
-    	background-color:#35af76;
-    	-moz-border-radius:3px;
-    	-webkit-border-radius:3px;
-    	border-radius:6px;
+      height: 40px;
+      color: black;
+      background: white;
+      border: 0;
+      border-radius: 5px;
+      font-size: 12px;
+      font-family: 'Roboto Mono', monospace;
+      text-transform: uppercase;
+      padding: 0px 24px;
       cursor: pointer;
-    	color:#ffffff;
-    	font-size:28px;
-    	font-weight:bold;
-    	padding:7px 24px;
-    	text-decoration:none;
-      border-color: #49494b;
     }
     .start button:hover {
-    	background-color:#3d57a3;
+      color: white;
+      background-color: black;
     }
 
 
@@ -80,7 +87,7 @@
   <div class="wrapper">
     <div class="grid">
       <div class="logo">
-        <img src="light.png" alt="">
+        <img src="onehack.svg" alt="">
         <p class="location flip-clock-wrapper">Tel Aviv, June 23 & 24 2019</p>
       </div>
       <div class="start">
